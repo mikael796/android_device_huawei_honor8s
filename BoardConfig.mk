@@ -34,7 +34,10 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_RECOVERY_SWIPE := true
 
 # ---------- TWRP ----------
-TW_THEME := 720x1280
+# twrp-9.0 era themes: portrait_hdpi etc (pixel-based themes are newer)
+TW_THEME := portrait_hdpi
+TARGET_SCREEN_WIDTH := 720
+TARGET_SCREEN_HEIGHT := 1520
 TW_INPUT_BLACKLIST := "hbtp_vm"
 
 TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
