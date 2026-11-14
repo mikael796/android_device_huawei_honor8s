@@ -1,56 +1,60 @@
-# Honor 8S (MT6761) TWRP fstab
-# Block devices: /dev/block/platform/bootdevice/by-name/* (eMMC GPT)
+# Honor 8S (MT6761) TWRP fstab — v2 native format
+# system/vendor/product/odm are EROFS (stock kernel supports it)
 
-# ---------------- storage mounts ----------------
-/dev/block/platform/bootdevice/by-name/system        /system       ext4      defaults    defaults
-/dev/block/platform/bootdevice/by-name/vendor        /vendor       ext4      defaults    defaults
-/dev/block/platform/bootdevice/by-name/product       /product      ext4      defaults    defaults
-/dev/block/platform/bootdevice/by-name/version       /version      ext4      defaults    defaults
-/dev/block/platform/bootdevice/by-name/odm           /odm          ext4      defaults    defaults
-/dev/block/platform/bootdevice/by-name/cust          /cust         ext4      defaults    defaults
-/dev/block/platform/bootdevice/by-name/cache         /cache        ext4      defaults    flags=backup=1;display="Cache"
-/dev/block/platform/bootdevice/by-name/userdata      /data         f2fs      defaults    flags=backup=1;length=-16384;formattable;display="Data"
-/dev/block/platform/bootdevice/by-name/log           /log          ext4      defaults    defaults
-/dev/block/platform/bootdevice/by-name/nvdata        /nvdata       ext4      defaults    defaults
+/boot                  emmc      /dev/block/platform/bootdevice/by-name/boot                 flags=display="Boot";backup=1;flashimg=1
+/boot_para             emmc      /dev/block/platform/bootdevice/by-name/boot_para            flags=display="Boot_para";backup=1;flashimg=1
+/dtbo                  emmc      /dev/block/platform/bootdevice/by-name/dtbo                 flags=display="Dtbo";backup=1;flashimg=1
+/expdb                  emmc      /dev/block/platform/bootdevice/by-name/expdb               flags=display="Expdb";backup=1;flashimg=1
+/frp                   emmc      /dev/block/platform/bootdevice/by-name/frp                  flags=display="FRP";backup=1;flashimg=1
+/lk                    emmc      /dev/block/platform/bootdevice/by-name/lk                   flags=display="LK";backup=1;flashimg=1
+/lk2                   emmc      /dev/block/platform/bootdevice/by-name/lk2                  flags=display="LK2";backup=1;flashimg=1
+/logo                  emmc      /dev/block/platform/bootdevice/by-name/logo                 flags=display="Logo";backup=1;flashimg=1
+/md1img                emmc      /dev/block/platform/bootdevice/by-name/md1img               flags=display="Modem";backup=1;flashimg=1
+/md1dsp                emmc      /dev/block/platform/bootdevice/by-name/md1dsp               flags=display="Modem dsp";backup=1;flashimg=1
+/md1arm7               emmc      /dev/block/platform/bootdevice/by-name/md1arm7              flags=display="Modem arm7";backup=1;flashimg=1
+/md3img                emmc      /dev/block/platform/bootdevice/by-name/md3img               flags=display="Modem3";backup=1;flashimg=1
+/misc                  emmc      /dev/block/platform/bootdevice/by-name/misc                 flags=display="Misc";backup=1;flashimg=1
+/nvram                 emmc      /dev/block/platform/bootdevice/by-name/nvram                flags=display="Nvram";backup=1;flashimg=1
+/proinfo               emmc      /dev/block/platform/bootdevice/by-name/proinfo              flags=display="Proinfo";backup=1;flashimg=1
+/scp1                  emmc      /dev/block/platform/bootdevice/by-name/scp1                 flags=display="Scp1";backup=1;flashimg=1
+/scp2                  emmc      /dev/block/platform/bootdevice/by-name/scp2                 flags=display="Scp2";backup=1;flashimg=1
+/seccfg                emmc      /dev/block/platform/bootdevice/by-name/seccfg               flags=display="Seccfg";backup=1;flashimg=1
+/spmfw                 emmc      /dev/block/platform/bootdevice/by-name/spmfw                flags=display="Spmfw";backup=1;flashimg=1
+/sspm_1                emmc      /dev/block/platform/bootdevice/by-name/sspm_1               flags=display="Sspm1";backup=1;flashimg=1
+/sspm_2                emmc      /dev/block/platform/bootdevice/by-name/sspm_2               flags=display="Sspm2";backup=1;flashimg=1
+/tee1                  emmc      /dev/block/platform/bootdevice/by-name/tee1                 flags=display="Tee1";backup=1;flashimg=1
+/tee2                  emmc      /dev/block/platform/bootdevice/by-name/tee2                 flags=display="Tee2";backup=1;flashimg=1
+/vbmeta                emmc      /dev/block/platform/bootdevice/by-name/vbmeta               flags=display="Vbmeta";backup=1;flashimg=1
+/recovery_ramdisk      emmc      /dev/block/platform/bootdevice/by-name/recovery_ramdisk     flags=display="Recovery ramdisk";backup=1;flashimg=1
+/recovery_vendor       emmc      /dev/block/platform/bootdevice/by-name/recovery_vendor       flags=display="Recovery vendor";backup=1;flashimg=1
+/recovery_vbmeta       emmc      /dev/block/platform/bootdevice/by-name/recovery_vbmeta       flags=display="Recovery_vbmeta";backup=1;flashimg=1
+/erecovery_kernel      emmc      /dev/block/platform/bootdevice/by-name/erecovery_kernel      flags=display="eRecovery kernel";backup=1;flashimg=1
+/erecovery_ramdisk     emmc      /dev/block/platform/bootdevice/by-name/erecovery_ramdisk     flags=display="eRecovery ramdisk";backup=1;flashimg=1
+/erecovery_vendor      emmc      /dev/block/platform/bootdevice/by-name/erecovery_vendor      flags=display="eRecovery vendor";backup=1;flashimg=1
+/erecovery_vbmeta      emmc      /dev/block/platform/bootdevice/by-name/erecovery_vbmeta      flags=display="eRecovery vbmeta";backup=1;flashimg=1
+/oeminfo               emmc      /dev/block/platform/bootdevice/by-name/oeminfo              flags=display="Oeminfo";backup=1;flashimg=1
+/patch                 emmc      /dev/block/platform/bootdevice/by-name/patch                flags=display="Patch";backup=1;flashimg=1
+/preas                 emmc      /dev/block/platform/bootdevice/by-name/preas                flags=display="Preas";backup=1;flashimg=1
+/preavs                emmc      /dev/block/platform/bootdevice/by-name/preavs               flags=display="Preavs";backup=1;flashimg=1
+/preload               emmc      /dev/block/platform/bootdevice/by-name/preload              flags=display="Preload";backup=1;flashimg=1
+/rrecord               emmc      /dev/block/platform/bootdevice/by-name/rrecord              flags=display="Rrecord";backup=1;flashimg=1
 
-# ---------------- microSD (removable) ----------------
-/dev/block/mmcblk1p1                                 /sdcard       vfat      defaults    flags=display="microSD";storage;removable
+/cache                 ext4      /dev/block/platform/bootdevice/by-name/cache                flags=display="Cache";backup=1;flashimg=1;wipeingui
+/cust                  ext4     /dev/block/platform/bootdevice/by-name/cust                 flags=display="Cust";backup=1;flashimg=1
+/nvcfg                 ext4      /dev/block/platform/bootdevice/by-name/nvcfg                flags=display="Nvcfg";backup=1;flashimg=1
+/nvdata                ext4      /dev/block/platform/bootdevice/by-name/nvdata               flags=display="Nvdata";backup=1;flashimg=1
+/odm                   ext4     /dev/block/platform/bootdevice/by-name/odm                  flags=display="Odm";backup=1;flashimg=1
+/persist               ext4      /dev/block/platform/bootdevice/by-name/persist              flags=display="Persist";backup=1;flashimg=1
+/product               ext4     /dev/block/platform/bootdevice/by-name/product              flags=display="Product";backup=1;flashimg=1
+/protect1              ext4      /dev/block/platform/bootdevice/by-name/protect1             flags=display="Protect1";backup=0;flashimg=1
+/protect2              ext4      /dev/block/platform/bootdevice/by-name/protect2             flags=display="Protect2";backup=0;flashimg=1
+/system                ext4     /dev/block/platform/bootdevice/by-name/system               flags=display="System";backup=1;flashimg=1;
+/vendor                ext4     /dev/block/platform/bootdevice/by-name/vendor               flags=display="Vendor";backup=1;flashimg=1;
+/version               ext4      /dev/block/platform/bootdevice/by-name/version              flags=display="Version";backup=1;flashimg=1
 
-# ---------------- USB OTG ----------------
-/devices/platform/mt_usb*                            /usb_otg      auto      defaults    voldmanaged=usbotg:auto
-/devices/platform/externdevice*                      /external_sd  auto      defaults    voldmanaged=sdcard1:auto
+/data                  f2fs      /dev/block/platform/bootdevice/by-name/userdata             flags=display="Data";backup=1;wipeingui
 
-# ---------------- flashable partitions ----------------
-/dev/block/platform/bootdevice/by-name/boot         /boot                 emmc      defaults    flags=backup=1;display="Boot"
-/dev/block/platform/bootdevice/by-name/recovery     /recovery             emmc      defaults    flags=backup=1;display="Recovery"
-/dev/block/platform/bootdevice/by-name/recovery_ramdisk /recovery_ramdisk emmc      defaults    flags=backup=1;display="Recovery ramdisk"
-/dev/block/platform/bootdevice/by-name/recovery_vendor /recovery_vendor   emmc      defaults    flags=backup=1;display="Recovery vendor"
-/dev/block/platform/bootdevice/by-name/misc         /misc                 emmc      defaults    flags=display="Misc"
-/dev/block/platform/bootdevice/by-name/vbmeta       /vbmeta               emmc      defaults    flags=display="Vbmeta"
-/dev/block/platform/bootdevice/by-name/dtbo         /dtbo                 emmc      defaults    flags=display="Dtbo"
-/dev/block/platform/bootdevice/by-name/dtbo1        /dtbo1                emmc      defaults    flags=display="Dtbo1"
-/dev/block/platform/bootdevice/by-name/dtbo2        /dtbo2                emmc      defaults    flags=display="Dtbo2"
-/dev/block/platform/bootdevice/by-name/lk           /bootloader           emmc      defaults    flags=display="LK"
-/dev/block/platform/bootdevice/by-name/lk2          /bootloader2          emmc      defaults    flags=display="LK2"
-/dev/block/platform/bootdevice/by-name/logo         /logo                 emmc      defaults    flags=display="Logo"
-/dev/block/platform/bootdevice/by-name/frp          /persistent           emmc      defaults    flags=display="FRP"
-/dev/block/platform/bootdevice/by-name/nvram        /nvram                emmc      defaults    flags=display="Nvram"
-/dev/block/platform/bootdevice/by-name/proinfo      /proinfo              emmc      defaults    flags=display="Proinfo"
-/dev/block/platform/bootdevice/by-name/seccfg      /seccfg               emmc      defaults    flags=display="Seccfg"
-/dev/block/platform/bootdevice/by-name/expdb        /expdb                emmc      defaults    flags=display="Expdb"
-/dev/block/platform/bootdevice/by-name/tee1         /tee1                 emmc      defaults    flags=display="Tee1"
-/dev/block/platform/bootdevice/by-name/tee2         /tee2                 emmc      defaults    flags=display="Tee2"
-/dev/block/platform/bootdevice/by-name/scp1         /scp1                 emmc      defaults    flags=display="Scp1"
-/dev/block/platform/bootdevice/by-name/scp2         /scp2                 emmc      defaults    flags=display="Scp2"
-/dev/block/platform/bootdevice/by-name/sspm_1      /sspm_1               emmc      defaults    flags=display="Sspm1"
-/dev/block/platform/bootdevice/by-name/sspm_2      /sspm_2               emmc      defaults    flags=display="Sspm2"
-/dev/block/platform/bootdevice/by-name/md1img      /md1img               emmc      defaults    flags=display="Modem"
-/dev/block/platform/bootdevice/by-name/md1dsp      /md1dsp               emmc      defaults    flags=display="Modem dsp"
-/dev/block/platform/bootdevice/by-name/md1arm7     /md1arm7              emmc      defaults    flags=display="Modem arm7"
-/dev/block/platform/bootdevice/by-name/md3img      /md3img               emmc      defaults    flags=display="Modem3"
-/dev/block/platform/bootdevice/by-name/spmfw       /spmfw                emmc      defaults    flags=display="Spmfw"
-/dev/block/platform/bootdevice/by-name/boot_para   /boot_para            emmc      defaults    flags=display="Boot para"
-/dev/block/platform/bootdevice/by-name/protect1     /protect_f            ext4      defaults    defaults
-/dev/block/platform/bootdevice/by-name/protect2     /protect_s            ext4      defaults    defaults
-/dev/block/platform/bootdevice/by-name/nvcfg       /nvcfg                ext4      defaults    defaults
-/dev/block/platform/bootdevice/by-name/persist     /persist              ext4      defaults    defaults
+/mmcblk0               emmc      /dev/block/mmcblk0                                          flags=display="Full Dump";backup=0;flashimg=1
+
+/external_sd           auto      /dev/block/mmcblk1p1  /dev/block/mmcblk1                    flags=display="MicroSD Card";storage;removable;backup=0
+/usbotg                auto      /dev/block/sda1       /dev/block/sda                       flags=display="USB OTG";storage;removable;backup=0

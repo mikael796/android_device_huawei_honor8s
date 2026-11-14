@@ -17,13 +17,30 @@ on init
     # writable sysfs knobs
     chmod 0666 /sys/class/leds/lcd-backlight/brightness
 
-on boot
-    # backlight up (TWRP also manages this via TW_BRIGHTNESS_PATH)
-    write /sys/class/leds/lcd-backlight/brightness 255
+    # mount points for EROFS partitions (mounted post-fs, see below)
+    mkdir /system 0755 root root
+    mkdir /vendor 0755 root root
+    mkdir /product 0755 root root
+    mkdir /odm 0755 root root
+    mkdir /cust 0755 root root
 
+on fs
+    # brightness up
+    write /sys/class/leds/lcd-backlight/brightness 255
     # USB controller up
     write /sys/devices/platform/mt_usb/cmode 0
 
-# keep CPU awake
-on property:sys.boot_completed=1
+on post-fs
+    # stock system partitions are EROFS; this TWRP build cannot mount erofs
+    # itself (unknown fs type), but the kernel supports it — mount manually.
+    # ext4 entries in fstab fail silently on erofs partitions, these succeed.
+    mount erofs /dev/block/platform/bootdevice/by-name/system /system ro
+    mount erofs /dev/block/platform/bootdevice/by-name/vendor /vendor ro
+    mount erofs /dev/block/platform/bootdevice/by-name/product /product ro
+    mount erofs /dev/block/platform/bootdevice/by-name/odm /odm ro
+    mount erofs /dev/block/platform/bootdevice/by-name/cust /cust ro
+    mount erofs /dev/block/platform/bootdevice/by-name/version /version ro
+
+on boot
+    # keep CPU awake
     write /sys/power/wake_lock recovery
