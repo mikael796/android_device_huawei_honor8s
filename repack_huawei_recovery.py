@@ -2,21 +2,24 @@
 """
 repack_huawei_recovery.py
 
-Huawei MT6761 devices (Honor 8S) boot recovery from a dedicated
-"recovery_ramdisk" partition holding an Android boot image with
-kernel_size=0 — the kernel is shared with boot.img and loaded from there.
+Huawei MT6761 (Honor 8S) boots recovery from a dedicated "recovery_ramdisk"
+partition: an Android boot image with kernel_size=0 (the kernel is shared
+with boot.img). LK in unlocked state validates only the image format and
+requires an AVBf footer at the end — a plain mkbootimg-style image without
+the footer is rejected (device drops to fastboot).
 
-IMPORTANT: LK validates more than the plain Android fields. A boot header
-constructed from scratch (zeros in the unused/Huawei fields, own cmdline)
-gets rejected and the device drops to fastboot. The only reliable way is
-to reuse the *stock* boot header byte-for-byte (recovery/stock_bootimg_hdr.bin
-taken from the stock recovery_ramdisk image) and only patch:
+The only reliable recipe (proven on-device): reuse the header and footer of
+a known-bootable recovery image byte-for-byte and patch only:
 
   - ramdisk_size (offset 16)
   - id/sha1      (offset 576, 20 bytes)
 
-The TWRP ramdisk is extracted from the built recovery.img and placed at
-offset 2048, image is padded with zeros to the stock partition size (32 MiB).
+Templates live next to this script:
+  recovery/foreign_bootimg_hdr.bin — 2048-byte boot header
+  recovery/foreign_bootimg_ftr.bin — 64-byte AVBf footer
+
+The TWRP ramdisk is extracted from the built recovery.img, placed at
+offset 2048, image is zero-padded to the stock partition size (32 MiB).
 
 Usage:
     python repack_huawei_recovery.py twrp-recovery.img recovery_ramdisk.img
@@ -27,12 +30,11 @@ import struct
 import sys
 import hashlib
 import os
+import gzip
+import io
+import zlib
 
 PART_SIZE = 33554432  # stock partition size (32 MiB)
-
-
-def pages(n, page):
-    return (n + page - 1) // page * page
 
 
 def main():
@@ -42,7 +44,8 @@ def main():
     src, dst = sys.argv[1], sys.argv[2]
 
     here = os.path.dirname(os.path.abspath(__file__))
-    hdr_path = os.path.join(here, "recovery", "stock_bootimg_hdr.bin")
+    hdr_path = os.path.join(here, "recovery", "foreign_bootimg_hdr.bin")
+    ftr_path = os.path.join(here, "recovery", "foreign_bootimg_ftr.bin")
 
     b = open(src, "rb").read()
     if b[:8] != b"ANDROID!":
@@ -52,28 +55,32 @@ def main():
     ks = int.from_bytes(b[8:12], "little")
     rs = int.from_bytes(b[16:20], "little")
 
-    off = pages(2048 + ks, ps) if ks else pages(2048, ps)
+    off = ((2048 + ks + ps - 1) // ps) * ps if ks else 2048
     ramdisk = b[off:off + rs]
     print(f"src: kernel={ks} ramdisk={rs} page={ps}")
     print(f"ramdisk blob: {len(ramdisk)} bytes @ {off} ({ramdisk[:2].hex()})")
 
     hdr = bytearray(open(hdr_path, "rb").read())
-    if len(hdr) != 2048:
-        print("bad stock header template")
+    ftr = open(ftr_path, "rb").read()
+    if len(hdr) != 2048 or len(ftr) != 64:
+        print("bad templates")
         sys.exit(1)
-    # patch only what must change
+
     struct.pack_into("<I", hdr, 16, len(ramdisk))
+    pad = (-len(ramdisk)) % ps
     sha = hashlib.sha1()
     sha.update(struct.pack("<I", len(ramdisk)))
     sha.update(ramdisk)
+    sha.update(b"\0" * pad)
     hdr[576:576 + 20] = sha.digest()
 
     out = bytearray(PART_SIZE)
     out[0:2048] = hdr
     out[2048:2048 + len(ramdisk)] = ramdisk
+    out[PART_SIZE - 64:] = ftr
     open(dst, "wb").write(out)
-    print(f"written {dst}: {len(out)} bytes (stock header, kernel_size="
-          f"{int.from_bytes(hdr[8:12], 'little')}, ramdisk {len(ramdisk)})")
+    print(f"written {dst}: {PART_SIZE} bytes (bootable header+footer, "
+          f"kernel_size=0, ramdisk {len(ramdisk)})")
     print("flash to: /dev/block/platform/bootdevice/by-name/recovery_ramdisk")
 
 
