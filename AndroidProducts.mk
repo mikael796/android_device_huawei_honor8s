@@ -1,5 +1,5 @@
 PRODUCT_MAKEFILES := \
-    $(LOCAL_PATH)/omni_honor8s.mk
+    $(LOCAL_DIR)/omni_honor8s.mk
 
 COMMON_LUNCH_CHOICES := \
     omni_honor8s-user \
