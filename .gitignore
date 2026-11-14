@@ -1,0 +1,8 @@
+# build junk
+__pycache__/
+*.pyc
+*.orig
+*.rej
+*~
+.DS_Store
+Thumbs.db

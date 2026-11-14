@@ -1,0 +1,23 @@
+# ueventd rules for Honor 8S (MT6761) TWRP
+
+# input / touch (MTK tpd)
+/dev/input/event*              0660   root    input
+/dev/tpd*                      0660   root    input
+/dev/mtk-tpd                   0660   root    input
+
+# graphics
+/graphics/fb*                  0660   root    graphics
+/dev/graphics/fb*              0660   root    graphics
+
+# backlight (MTK lcd-backlight)
+/sys/class/leds/lcd-backlight/brightness  0660  root  root
+
+# usb / adb
+/dev/usb-ffs/adb               0660   shell   shell
+/dev/ttyGS*                    0660   shell   shell
+/dev/musb*                     0660   root    root
+
+# misc
+/dev/timer*                    0660   root    root
+/dev/misc                       0660   root    root
+/dev/block/*                   0660   root    root
