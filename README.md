@@ -17,7 +17,7 @@ source tree at `device/huawei/honor8s` and built directly.
 AndroidProducts.mk            lunch targets: omni_honor8s-{user,userdebug,eng}
 omni_honor8s.mk               product makefile
 BoardConfig.mk                board/recovery/TWRP flags
-kernel/Image.gz-dtb           stock kernel from boot.img (gzip + appended MTK DTB)
+kernel/Image.gz-dtb           stock kernel blob from boot.img: gzip(Image + appended MTK DTB) — MTK LK expects appended DTB, keep as-is
 recovery/root/etc/recovery.fstab
 recovery/root/init.recovery.honor8s.rc
 recovery/root/init.recovery.usb.rc
