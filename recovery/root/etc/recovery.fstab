@@ -40,17 +40,17 @@
 /rrecord               emmc      /dev/block/platform/bootdevice/by-name/rrecord              flags=display="Rrecord";backup=1;flashimg=1
 
 /cache                 ext4      /dev/block/platform/bootdevice/by-name/cache                flags=display="Cache";backup=1;flashimg=1;wipeingui
-/cust                  ext4     /dev/block/platform/bootdevice/by-name/cust                 flags=display="Cust";backup=1;flashimg=1
+/cust                  erofs     /dev/block/platform/bootdevice/by-name/cust                 flags=display="Cust";backup=1;flashimg=1
 /nvcfg                 ext4      /dev/block/platform/bootdevice/by-name/nvcfg                flags=display="Nvcfg";backup=1;flashimg=1
 /nvdata                ext4      /dev/block/platform/bootdevice/by-name/nvdata               flags=display="Nvdata";backup=1;flashimg=1
-/odm                   ext4     /dev/block/platform/bootdevice/by-name/odm                  flags=display="Odm";backup=1;flashimg=1
+/odm                   erofs     /dev/block/platform/bootdevice/by-name/odm                  flags=display="Odm";backup=1;flashimg=1
 /persist               ext4      /dev/block/platform/bootdevice/by-name/persist              flags=display="Persist";backup=1;flashimg=1
-/product               ext4     /dev/block/platform/bootdevice/by-name/product              flags=display="Product";backup=1;flashimg=1
+/product               erofs     /dev/block/platform/bootdevice/by-name/product              flags=display="Product";backup=1;flashimg=1
 /protect1              ext4      /dev/block/platform/bootdevice/by-name/protect1             flags=display="Protect1";backup=0;flashimg=1
 /protect2              ext4      /dev/block/platform/bootdevice/by-name/protect2             flags=display="Protect2";backup=0;flashimg=1
-/system                ext4     /dev/block/platform/bootdevice/by-name/system               flags=display="System";backup=1;flashimg=1;
-/vendor                ext4     /dev/block/platform/bootdevice/by-name/vendor               flags=display="Vendor";backup=1;flashimg=1;
-/version               ext4      /dev/block/platform/bootdevice/by-name/version              flags=display="Version";backup=1;flashimg=1
+/system                erofs     /dev/block/platform/bootdevice/by-name/system               flags=display="System";backup=1;flashimg=1;
+/vendor                erofs     /dev/block/platform/bootdevice/by-name/vendor               flags=display="Vendor";backup=1;flashimg=1;
+/version               erofs      /dev/block/platform/bootdevice/by-name/version              flags=display="Version";backup=1;flashimg=1
 
 /data                  f2fs      /dev/block/platform/bootdevice/by-name/userdata             flags=display="Data";backup=1;wipeingui
 
