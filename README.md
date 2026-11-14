@@ -14,8 +14,8 @@ source tree at `device/huawei/honor8s` and built directly.
 
 ## Layout
 ```
-AndroidProducts.mk            lunch targets: omni_Honor8S-{user,userdebug,eng}
-omni_Honor8S.mk               product makefile
+AndroidProducts.mk            lunch targets: omni_honor8s-{user,userdebug,eng}
+omni_honor8s.mk               product makefile
 BoardConfig.mk                board/recovery/TWRP flags
 kernel/Image.gz-dtb           stock kernel from boot.img (gzip + appended MTK DTB)
 recovery/root/etc/recovery.fstab
@@ -29,7 +29,7 @@ repack_huawei_recovery.py     post-build repacker (see below)
 In your omni/TWRP tree:
 ```
 repo sync etc...
-lunch omni_Honor8S-eng
+lunch omni_honor8s-eng
 mka adbd recoveryimage
 ```
 Output: `out/target/product/honor8s/recovery.img`

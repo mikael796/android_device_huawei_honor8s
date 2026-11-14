@@ -6,7 +6,7 @@ DEVICE_PATH := device/huawei/honor8s
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/base_vendor.mk)
 
-# Inline kernel: stock Image.gz-dtb from boot.img (kernel + appended MTK DTB)
+# kernel: stock prebuilt Image.gz-dtb from boot.img (kernel + appended MTK DTB)
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/kernel/Image.gz-dtb
 
 PRODUCT_COPY_FILES += \
@@ -16,7 +16,7 @@ PRODUCT_COPY_FILES += \
     $(DEVICE_PATH)/recovery/root/init.recovery.usb.rc:recovery/root/init.recovery.usb.rc \
     $(DEVICE_PATH)/recovery/root/ueventd.rc:recovery/root/ueventd.rc
 
-PRODUCT_NAME := omni_Honor8S
+PRODUCT_NAME := omni_honor8s
 PRODUCT_DEVICE := honor8s
 PRODUCT_BRAND := HUAWEI
 PRODUCT_MODEL := Honor 8S
