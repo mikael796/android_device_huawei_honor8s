@@ -1,9 +1,5 @@
-ifneq ($(filter honor8s,$(TARGET_DEVICE)),)
+LOCAL_PATH := $(call my-dir)
 
-LOCAL_PATH := device/huawei/honor8s
-
-include $(CLEAR_VARS)
-
-TARGET_DEVICE_DIR := $(LOCAL_PATH)
-
+ifeq ($(TARGET_DEVICE),honor8s)
+include $(call all-subdir-makefiles,$(LOCAL_PATH))
 endif
