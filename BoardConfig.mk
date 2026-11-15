@@ -27,6 +27,7 @@ BOARD_SUPPRESS_BUILD_EMMC_ERASE := true
 BOARD_SUPPRESS_SECURE_ERASE := true
 
 # ---------- recovery ----------
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 33554432
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBA_8888"
 TARGET_RECOVERY_FSTAB := device/huawei/honor8s/recovery/root/etc/recovery.fstab
 RECOVERY_SDCARD_ON_DATA := false
