@@ -1,4 +1,4 @@
-# Honor 8S (MT6761) TWRP
+# Honor 8S (MT6761) TWRP — omni (twrp-7.1 branch)
 # Built from stock firmware images: boot.img kernel, vendor recovery.fstab
 
 DEVICE_PATH := device/huawei/honor8s
@@ -14,6 +14,8 @@ PRODUCT_COPY_FILES += \
     $(DEVICE_PATH)/recovery/root/etc/recovery.fstab:root/system/etc/recovery.fstab \
     $(DEVICE_PATH)/recovery/root/etc/recovery.fstab:recovery/root/etc/recovery.fstab \
     $(DEVICE_PATH)/recovery/root/init.recovery.honor8s.rc:recovery/root/init.recovery.honor8s.rc \
+    $(DEVICE_PATH)/recovery/root/init.recovery.qcom.rc:recovery/root/init.recovery.qcom.rc \
+    $(DEVICE_PATH)/recovery/root/init.recovery.mt6761.rc:recovery/root/init.recovery.mt6761.rc \
     $(DEVICE_PATH)/recovery/root/init.recovery.usb.rc:recovery/root/init.recovery.usb.rc \
     $(DEVICE_PATH)/recovery/root/ueventd.rc:recovery/root/ueventd.rc
 
